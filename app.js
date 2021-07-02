@@ -2,15 +2,6 @@ if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://main-user:w@t_d07h3yDo_!N4aM5rs%3F@yelpcluster.ivsyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');

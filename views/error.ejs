@@ -1,0 +1,13 @@
+<% layout('layout/boilerplate')%>
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class='alert alert-danger' role='alert'>
+      <h4 class='alert-heading'><%=err.message%></h4>
+      <% if(process.env.NODE_ENV !== 'production') { %>
+        <p><%= err.stack %></p> <!-- If we're not in production mode, don't show the error stack -->
+      <% } %> 
+      <hr>
+      <p class='mb-0'><a href="/campgrounds">Go back to All Campgrounds</a></p>
+    </div>
+  </div>
+</div>

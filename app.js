@@ -51,7 +51,7 @@ app.use(mongoSanitize({
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = MongoStore.create({
-  mongoUrl: 'mongodb://localhost:27017/yelpCamp',
+  mongoUrl: dbUrl,
   secret,
   touchAfter: 24 * 60 * 60
 });

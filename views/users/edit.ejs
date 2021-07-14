@@ -1,0 +1,28 @@
+<% layout('layout/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">Edit User Profile</h1>
+  <div class='col-6 offset-3'>
+    <form action="/profile/<%= user._id %>?_method=PUT" method="POST" novalidate class='validated-form'>
+      <div class='mb-3'>
+        <label for="username" class='form-label'>Username:</label>
+        <input type="text" class='form-control' id="username" name="user[username]" value="<%= user.username %>" >
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class='mb-3'>
+        <label for="email" class='form-label'>Email:</label>
+        <input class="form-control" type="text" id="email" name="user[email]" value="<%= user.email %>" >
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="alert alert-warning" role="alert">
+        You will be asked to log in again after you update your information.
+      </div>
+      <button class='btn btn-info mb-3'>Update User Info</button>
+      
+    </form>
+    <a href="/profile/<%= currentUser._id %>">Cancel</a>
+  </div>
+</div>

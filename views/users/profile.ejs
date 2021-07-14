@@ -1,0 +1,14 @@
+<% layout('layout/boilerplate')%>
+<div class="formStyles">
+<h1>Profile</h1>
+<p style="text-align:center"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626108384/YelpCamp/img-usericon-test_hqce6r.svg" width="150px" height="150px" alt="user profile icon"></p>
+<p style="text-align:center"><a href="#">Change Profile Icon</a></p>
+<hr>
+<h2>Username:</h2>
+<p class="fs-5 text"><%= currentUser.username %></p>
+<h2>Email:</h2>
+<p class='fs-5 text'><%= currentUser.email %></p>
+<h2>Password:</h2>
+<p class='fs-5 text'><i>Password cannot be updated at this time</i></p>
+<p><a href="/edit/<%= currentUser._id %>">Edit Account Info</a></p>
+</div>

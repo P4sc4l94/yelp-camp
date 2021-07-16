@@ -14,7 +14,8 @@ module.exports.renderRegister =  (req, res) => {
 module.exports.register = async (req, res, next) => {
   try{
     const {email, username, password} = req.body;
-    const user = new User({email, username});
+    const {image} = req.body;
+    const user = new User({email, username, image});
     const registeredUser = await User.register(user, password);
     //console.log(registeredUser);
     req.login(registeredUser, err => {
@@ -25,7 +26,7 @@ module.exports.register = async (req, res, next) => {
     
   } catch(e){
     req.flash('error', e.message);
-     return res.redirect('register');
+    return res.redirect('register');
   }
   
 };
@@ -76,19 +77,26 @@ module.exports.editProfile = async (req, res, next) => {
   const {id} = req.params;
   const {username} = req.body.user;
   const {email} = req.body.user;
-  //const user = await User({email, username});
-  const user = await User.findOneAndUpdate(id, {username, email}, {
+  const {image} = req.body.user
+
+  const user = await User.findOneAndUpdate(id, {$set: {username: username, email: email, image: image}}, {
     new: true
   });
   await user.save();
 
-  //console.log(username);
-  //console.log(email);
   console.log(user);
+  //req.logout();
+  req.flash('success', 'Successfully updated profile!')
   return res.redirect(`/login`);
   
 
-  //req.flash('success', 'Successfully updated profile!')
+  
   //res.send(req.body)
   //{ users: { username: 'tim22', email: 'tim@gmail.com' } }
 };
+
+/*
+module.exports.renderChangeIcon = async (req, res, next) => {
+  return res.send('/change-icon')
+}
+*/

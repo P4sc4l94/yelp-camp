@@ -31,6 +31,9 @@ router.get('/profile/:id', catchAsync(users.showProfile));
 router.get('/edit/:id', catchAsync(users.renderEditProfile));
 
 //post updated user profile info
-router.put('/profile/:id', isLoggedIn, catchAsync(users.editProfile))
+router.put('/profile/:id', isLoggedIn, catchAsync(users.editProfile));
+
+//show change user icon form
+/*router.get('/change-icon/:id', catchAsync(users.renderChangeIcon));*/
 
 module.exports = router;

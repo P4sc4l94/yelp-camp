@@ -1,0 +1,155 @@
+/*
+/ STYLES FOR THE LOGIN/REGISTER PAGES
+*/
+.form-container {
+  margin-bottom: 12rem;
+}
+
+.reg-background-container {
+  margin: 0;
+  /*background-color: rgba(255, 15, 255, 0.25);*/
+}
+
+.reg-form-container {
+  margin-bottom: 7rem;
+  position: relative;
+}
+
+.formStyles {
+  width: 60%;
+  min-width: 250px;
+  margin: 0 auto;
+}
+
+.formStyles h1 {
+  text-align: center;
+}
+
+.logBtn {
+  background-color: #0388a6;
+}
+
+.logBtn:hover {
+  background-color: #023859;
+}
+
+.logBtnTxt {
+  font-weight: bold;
+}
+
+.BGImgBtm {
+  background-image: url("https://res.cloudinary.com/dg92t6syv/image/upload/v1625849688/YelpCamp/img-loginBG-1_x4wabc.png");
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 45vw;
+  min-width: 400px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 0rem;
+  z-index: -1;
+}
+
+.BGImgBtm-reg {
+  background-image: url("https://res.cloudinary.com/dg92t6syv/image/upload/v1625849688/YelpCamp/img-loginBG-1_x4wabc.png");
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 45vw;
+  min-width: 400px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 0;
+  z-index: -1;
+}
+
+.BGImgTop,
+.BGImgTop-reg {
+  background-image: url("https://res.cloudinary.com/dg92t6syv/image/upload/v1625849688/YelpCamp/img-loginBG-2_add9nh.png");
+  background-position: top right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 45vw;
+  min-width: 400px;
+  height: 500px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 60px;
+  z-index: -1;
+}
+
+@media screen and (max-width: 1450px) {
+  .reg-form-container {
+    margin-bottom: 3rem;
+  }
+
+  .BGImgBtm-reg {
+    margin-bottom: 2rem;
+  }
+
+  .form-container {
+    margin-bottom: 9rem;
+  }
+
+  .BGImgBtm {
+    margin-bottom: 14.75rem;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .BGImgBtm-reg {
+    margin-bottom: -0.75rem;
+  }
+  .reg-form-container {
+    margin-bottom: 3rem;
+  }
+
+  .form-container {
+    margin-bottom: 7rem;
+  }
+
+  .BGImgBtm {
+    margin-bottom: 16.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .formStyles {
+    width: 90%;
+  }
+
+  .reg-form-container {
+    margin-bottom: 4rem;
+  }
+
+  .BGImgBtm-reg {
+    margin-bottom: 2.5rem;
+  }
+
+  .form-container {
+    margin-bottom: 7rem;
+  }
+
+  .BGImgBtm {
+    margin-bottom: 18.25rem;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .BGImgTop,
+  .BGImgTop-reg {
+    display: none;
+  }
+  .reg-form-container {
+    margin-bottom: 3.5rem;
+  }
+
+  .BGImgBtm-reg {
+    margin-bottom: 0.25rem;
+  }
+}

@@ -1,5 +1,27 @@
-<footer class='footer bg-dark py-3 mt-auto'>
-  <div class="container">
-    <span class='text-muted'>YelpCamp &copy;2021</span>
+<footer class='footer container-fluid bg-dark py-3 mt-auto'>
+  <div class="row pt-3 text-white mx-auto">
+    <section class="col-md-4">
+      <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626366303/YelpCamp/yelpCamp-logo-white_xnpz2r.svg" alt="YelpCamp logo in white">
+      <hr class="footer-hr">
+    </section>
+    <section class="col-md-4">
+      <ul class="navbar-nav flex-column">
+        <li><a class="nav-link fw-bold footer-nav" href="/">Home</a></li>
+        <li><a class="nav-link fw-bold footer-nav" href="/campgrounds">Campgrounds</a></li>
+        <li><a class="nav-link fw-bold footer-nav" href="/campgrounds/new">New Campground</a></li>
+        <% if(!currentUser) {%>
+          <li><a class="nav-link fw-bold footer-nav" href="/login">Login</a></li>
+          <li><a class="nav-link fw-bold footer-nav" href="/register">Register</a></li>
+        <% } else {%>
+          <li><a class="nav-link fw-bold footer-nav" href="/logout">Logout</a></li>
+        <% } %>
+      </ul>
+      <hr class="footer-hr">
+    </section>
+    <section class="col-md-4">
+      <p>YelpCamp was built with the help of MongoDB, Mongoose, Express, Passport, Bootstrap, and Node.js. All photos come from Unsplash. Icons and other imagery come from Rawpixel. See our About page for details.
+      </p>
+      <p><span class='text-muted'>YelpCamp &copy;2021</span></p>
+    </section>
   </div>
 </footer>

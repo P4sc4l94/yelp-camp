@@ -10,8 +10,42 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/home.css">
 </head>
-<body class="d-flex text-center text-white bg-dark">
-  <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+<body class="bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark mb-5">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">YelpCamp</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="/campgrounds">Campgrounds</a>
+              <a class="nav-link" href="/campgrounds/new">New Campground</a>
+          </div>
+          <div class="navbar-nav" style="margin-left:auto;">
+            <% if(!currentUser) {%>
+              <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="/register">Register</a>
+            <% } else {%>
+              <!--<a class="nav-link" href="/logout">Logout</a>-->
+              <div class="dropdown user-icon">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<%= currentUser.image %>" width="40px" height="40px" alt="user profile image"/>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/profile/<%= currentUser._id %>"><%= currentUser.username %>'s Profile</a></li>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+              </div>
+            <% } %>
+          </div>
+          </div>
+        </div>
+      </nav>
+      <!--sticky-top-->
+  <div class="container-fluid text-center text-white main-content">
+      <!-- 
       <header class="mb-auto">
           <div>
               <h3 class="mb-0" style="float:left">YelpCamp</h3>
@@ -27,18 +61,24 @@
               </nav>
           </div>
       </header>
-      <main class="px-3">
+      -->
+      <main class="px-3 col-md-8 mx-auto content-text">
           <h1>Welcome to YelpCamp!</h1>
-          <p class="lead">Jump right in and explore our many campgrounds. <br>
-              Feel free to share some of your own and comment on others!</p>
-          <a href="/campgrounds" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">View
-              Campgrounds</a>
+          <p class="lead">Jump right in and explore our many campgrounds.
+              Feel free to share some of your own and comment on others!
+          </p>
+              <!-- 
+              <form class="d-flex mb-3 col-md-8 mx-auto">
+                <input class="form-control me-2" type="search" placeholder="Search for a camp..." name="siteSearch" id="siteSearch" aria-label="Search">
+                <button class="btn btn-warning" type="submit">Search</button>
+              </form>
+              -->
+          <a href='/campgrounds' class='btn btn-light col-md-6 fs-5'><b>View All Campgrounds</b></a>
       </main>
-
-      <footer class="mt-auto text-white-50">
-          <p>&copy; 2020 </p>
-      </footer>
   </div>
+  <footer class="mt-5 text-white-50">
+    <p>&copy; 2020 </p>
+  </footer>
   <!--BOOTSTRAP JS-->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>

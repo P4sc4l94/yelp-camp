@@ -1,74 +1,240 @@
 <% layout('layout/boilerplate')%>
-  <style>
-    body {
-
-      background-image: url(https://res.cloudinary.com/dg92t6syv/image/upload/v1625848600/YelpCamp/topoMapBG-tan_neasn4.svg);
-      background-repeat: repeat;
-    }
-
-    /* FILTER CLASSES */
-    .filtered {
-      display: none;
-    }
-
-    .unfiltered {
-      display: block;
-    }
-  </style>
-  <div class="container-bg">
-    <div class="content-container-pad">
-      <div id="clusterMap"></div>
-      <hr>
-      <h1>All Campgrounds</h1>
-      <div class='mb-3'>
-        <a href="/campgrounds/new">Add Camp</a>
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /*background-color: grey;*/
+  }
+  span{
+    display: block;
+    font-weight: bold;
+  }
+  p{
+    text-align: center;
+  }
+</style>
+<!-- 
+<div class="container d-flex justify-content-center align-items-center mb-4">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <img src="https://images.unsplash.com/photo-1565578151233-45758846ae9a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" class="card-img-top" alt="">
+        <div class="card-body">
+          <div class="card-title"><h5>Register</h5></div>
+          <form action="/register" method="POST" class='validated-form' novalidate>
+            <div class='mb-3'>
+              <label for="username" class='form-label'>Username:</label>
+              <input type="text" class='form-control' id="username" name="username" required autofocus>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class='mb-3'>
+              <label for="email" class='form-label'>Email:</label>
+              <input type="email" class='form-control' id="email" name="email" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class='mb-3'>Password:</label>
+              <input type="password" class='form-control' id="password" name="password" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success" type="button">Register</button>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <% for (let campground of campgrounds) {%>
-        <div class='card mb-3 mx-auto'>
-          <div class='row'>
-            <div class='col-md-4'>
-              <% if(campground.images.length) { %>
-                <img loading="lazy" class="img-fluid lazyload"
-                  src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626972492/YelpCamp/img-noCamp_ursph7.jpg"
-                  data-src="<%=campground.images[0].url%>" alt="<%=campground.title%>">
-                <% } else { %>
-                  <img loading="lazy" class="img-fluid lazyload"
-                    data-src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626972492/YelpCamp/img-noCamp_ursph7.jpg"
-                    alt="No campground image was uploaded">
-                  <% } %>
-            </div>
-            <div class='col-md-8 pb-2'>
-              <h5 class='card-title mt-2 camp-card-details'>
-                <%=campground.title%>
-              </h5>
-              <p class='card-text camp-card-details'>
-                <%=campground.description%>
-              </p>
-              <p class="camp-card-details"><small class='text-muted'>
-                  <%=campground.location%>
-                </small></p>
-              <a class="btn btn-primary camp-card-btn" href="/campgrounds/<%=campground._id%>">View
-                <%=campground.title%>
-              </a>
-            </div>
-          </div>
-        </div>
-        <% } %>
     </div>
   </div>
-  <script>
-    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-    const campgrounds = { features: <% - JSON.stringify(campgrounds) %>}
-  </script>
-  <script src="/javascripts/clusterMap.js"></script>
+</div>
+-->
+<!-- OLD REGISTER FORM -->
+<div class='reg-background-container'>
+  <div class="formStyles col-lg-6 offset-lg-3 reg-form-container content-container-pad">
+  <h1>Register</h1>
+  <form action="/register" method="POST" class='validated-form' novalidate>
+    <div class='mb-3'>
+      <label for="username" class='form-label'>Username:</label>
+      <input type="text" class='form-control' id="username" name="username" required autofocus>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class='mb-3'>
+      <label for="email" class='form-label'>Email:</label>
+      <input type="email" class='form-control' id="email" name="email" required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class='mb-3'>Password:</label>
+      <input type="password" class='form-control' id="password" name="password" required>
+      <!--
+      <div class="alert alert-warning" role="alert">
+        A password recovery option has not been implemented yet. Please remember your password.
+      </div>
+      -->
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div>
+      <input class="form-control" type="text" id="user-icon" name="image" style="display: none;" height="25px" value="">
+    </div>
+    <div class="form-group">
+      <label for="icons">Choose an Icon:</label>
+      <select name="user-icons" id="icons" class='form-select mb-3' onchange="selectIconFunction()" required>
+        <option value="">Select an icon</option>
+        <option value="icon-1">Icon 1</option>
+        <option value="icon-2">Icon 2</option>
+        <option value="icon-3">Icon 3</option>
+        <option value="icon-4">Icon 4</option>
+        <option value="icon-5">Icon 5</option>
+        <option value="icon-6">Icon 6</option>
+      </select>
+      <div class='row mb-3'>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg" alt="user icon option 1" width="75px" height="auto">
+            <span>Icon 1</span> 
+          </p>
+        </div>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg" alt="user icon option 2" width="75px" height="auto">
+            <span>Icon 2</span> 
+          </p>
+        </div>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg" alt="user icon option 3" width="75px" height="auto">
+            <span>Icon 3</span> 
+          </p>
+        </div>
+      </div>
+      <div class='row mb-3'>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg" alt="user icon option 4" width="75px" height="auto">
+            <span>Icon 4</span>
+          </p>
+        </div>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg" alt="user icon option 5" width="75px" height="auto">
+            <span>Icon 5</span>
+          </p>
+        </div>
+        <div class='col-3 mx-auto'>
+          <p>
+            <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg" alt="user icon option 6" width="75px" height="auto">
+            <span>Icon 6</span>
+          </p>
+        </div>
+      </div>
+      <!-- 
+      <p>Choose an Icon:</p>
+        <div class='row mb-3'>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-1" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg'>
+            <label for="icon-1"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg" alt="user icon option 1" width="75px" height="auto"></label>
+          </div>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-2" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg'>
+            <label for="icon-2"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg" alt="user icon option 2" width="75px" height="auto"></label>
+          </div>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-3" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg'>
+            <label for="icon-3"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg" alt="user icon option 3" width="75px" height="auto"></label>
+          </div>
+        </div>
+        <div class='row mb-3'>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-4" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg'>
+            <label for="icon-4"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg" alt="user icon option 4" width="75px" height="auto"></label>
+          </div>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-5" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg'>
+            <label for="icon-5"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg" alt="user icon option 5" width="75px" height="auto"></label>
+          </div>
+          <div class='col-3 mx-auto'>
+            <input type="radio" id="icon-6" name="user-icon" value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg'>
+            <label for="icon-6"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg" alt="user icon option 6" width="75px" height="auto"></label>
+          </div>
+        </div>
+        -->
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto mb-5">
+      <button class='btn btn-success logBtn'><span class="logBtnTxt fs-4">Register</span></button>
+    </div>
+  </form>
+  </div> 
+  <div class="BGImgBtm-reg"></div>
+  <div class="BGImgTop-reg"></div>
+</div>
+<div class="login-mobile-bg">
+  <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626807568/YelpCamp/img-mountains-blue_x1zbfz.svg" alt="RV camper in a forest">
+</div>
 
-  <!-- LAZY LOAD IMAGES PLUGIN-->
-  <!-- https://github.com/tuupola/lazyload -->
-  <!--
-    if <img loading="lazy".../> doesn't work, use the plugin
-  -->
-  <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
-  <script>
-    lazyload();
-  </script>
+<script>
+  function selectIconFunction() {
+    const selection = document.getElementById('icons').value;
+    //let userIcon = document.getElementById('user-icon').value;
+    if (selection === 'icon-1'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg';
+      //console.log('ICON 1');
+      //console.log(userIcon)
+    } else if (selection === 'icon-2'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg';
+      //console.log('ICON 2');
+      //console.log(userIcon)
+    } else if (selection === 'icon-3'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg';
+      //console.log('ICON 3');
+      //console.log(userIcon)
+    } else if (selection === 'icon-4'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg';
+      //console.log('ICON 4');
+      //console.log(userIcon)
+    } else if (selection === 'icon-5'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg';
+      //console.log('ICON 5');
+      //console.log(userIcon)
+    } else if (selection === 'icon-6'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg';
+      //console.log('ICON 6');
+      //console.log(userIcon)
+    }
+  }
+  /*
+  document.getElementById("icon-1").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg';
+}, false);
+
+  document.getElementById("icon-2").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg';
+}, false);
+
+document.getElementById("icon-3").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg';
+}, false);
+
+document.getElementById("icon-4").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg';
+}, false);
+
+document.getElementById("icon-5").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg';
+}, false);
+
+document.getElementById("icon-6").addEventListener("click", function() {
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg';
+}, false);
+*/
+</script>

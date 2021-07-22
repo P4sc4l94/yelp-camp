@@ -1,25 +1,87 @@
 <% layout('layout/boilerplate')%>
-<div class="row">
+<style>
+  span{
+    display: block;
+    font-weight: bold;
+  }
+  p{
+    text-align: center;
+  }
+</style>
+<div class="row content-container-pad">
   <h1 class="text-center">Edit User Profile</h1>
-  <div class='col-6 offset-3'>
-    <form action="/profile/<%= user._id %>?_method=PUT" method="POST" novalidate class='validated-form'>
+  <div class='col-lg-6 offset-lg-3'>
+    <form action="/profile/<%= currentUser._id %>?_method=PUT" method="POST" novalidate class='validated-form'>
+      
       <div class='mb-3'>
         <label for="username" class='form-label'>Username:</label>
-        <input type="text" class='form-control' id="username" name="user[username]" value="<%= user.username %>" >
+        <input type="text" class='form-control' id="username" name="user[username]" value="<%= currentUser.username %>" >
         <div class="valid-feedback">
           Looks good!
         </div>
       </div>
       <div class='mb-3'>
         <label for="email" class='form-label'>Email:</label>
-        <input class="form-control" type="text" id="email" name="user[email]" value="<%= user.email %>" >
+        <input class="form-control" type="text" id="email" name="user[email]" value="<%= currentUser.email %>" >
         <div class="valid-feedback">
           Looks good!
         </div>
       </div>
       <div>
-        <input class="form-control" type="text" id="user-icon" name="user[image]" style="display: none;" height="25px" value="">
+        <input class="form-control" type="text" id="user-icon" name="user[image]" style="display: none;" height="25px" value="<%= currentUser.image %>">
       </div>
+      <div class="form-group">
+        <label for="icons">Choose an Icon:</label>
+        <select name="user-icons" id="icons" class='form-select mb-3' onchange="selectIconFunction()" required>
+          <option value="">Select an icon</option>
+          <option value="icon-1">Icon 1</option>
+          <option value="icon-2">Icon 2</option>
+          <option value="icon-3">Icon 3</option>
+          <option value="icon-4">Icon 4</option>
+          <option value="icon-5">Icon 5</option>
+          <option value="icon-6">Icon 6</option>
+        </select>
+        <div class='row mb-3'>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg" alt="user icon option 1" width="75px" height="auto">
+              <span>Icon 1</span> 
+            </p>
+          </div>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg" alt="user icon option 2" width="75px" height="auto">
+              <span>Icon 2</span> 
+            </p>
+          </div>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg" alt="user icon option 3" width="75px" height="auto">
+              <span>Icon 3</span> 
+            </p>
+          </div>
+        </div>
+        <div class='row mb-3'>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg" alt="user icon option 4" width="75px" height="auto">
+              <span>Icon 4</span>
+            </p>
+          </div>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg" alt="user icon option 5" width="75px" height="auto">
+              <span>Icon 5</span>
+            </p>
+          </div>
+          <div class='col-3 mx-auto'>
+            <p>
+              <img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg" alt="user icon option 6" width="75px" height="auto">
+              <span>Icon 6</span>
+            </p>
+          </div>
+        </div>
+      <!-- 
       <p>Choose an Icon:</p>
       <div class='row mb-3'>
         <div class='col-md-3 mx-auto'>
@@ -49,6 +111,7 @@
           <label for="icon-6"><img src="https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg" alt="user icon option 6" width="75px" height="auto"></label>
         </div>
       </div>
+      -->
       <!--
       <div class="mb-3">
         <label for="images" class="form-label">Change Icon Image:</label>
@@ -62,12 +125,44 @@
       
     </form>
     <div class='mb-3'>
-      <a href="/profile/<%= user._id %>">Cancel</a>
+      <a href="/profile/<%= currentUser._id %>">Cancel</a>
     </div>
     
   </div>
 </div>
 <script>
+  function selectIconFunction() {
+    const selection = document.getElementById('icons').value;
+    //let userIcon = document.getElementById('user-icon').value;
+    if (selection === 'icon-1'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg';
+      //console.log('ICON 1');
+      //console.log(userIcon)
+    } else if (selection === 'icon-2'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt2_zbjyeq.svg';
+      //console.log('ICON 2');
+      //console.log(userIcon)
+    } else if (selection === 'icon-3'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt3_f9toiq.svg';
+      //console.log('ICON 3');
+      //console.log(userIcon)
+    } else if (selection === 'icon-4'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg';
+      //console.log('ICON 4');
+      //console.log(userIcon)
+    } else if (selection === 'icon-5'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt5_ie6lkb.svg';
+      //console.log('ICON 5');
+      //console.log(userIcon)
+    } else if (selection === 'icon-6'){
+      document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg';
+      //console.log('ICON 6');
+      //console.log(userIcon)
+    } else {
+      document.getElementById('user-icon').value= '<%- currentUser.image %>';
+    }
+  }
+  /*
   document.getElementById("icon-1").addEventListener("click", function() {
     document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt1_mk6d21.svg';
 }, false);
@@ -81,7 +176,7 @@ document.getElementById("icon-3").addEventListener("click", function() {
 }, false);
 
 document.getElementById("icon-4").addEventListener("click", function() {
-    document.getElementById('user-icon').value='hhttps://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg';
+    document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-opt4_giaxud.svg';
 }, false);
 
 document.getElementById("icon-5").addEventListener("click", function() {
@@ -91,4 +186,5 @@ document.getElementById("icon-5").addEventListener("click", function() {
 document.getElementById("icon-6").addEventListener("click", function() {
     document.getElementById('user-icon').value='https://res.cloudinary.com/dg92t6syv/image/upload/v1626407138/YelpCamp/img-usericon-noIcon_bncurb.svg';
 }, false);
+*/
 </script>

@@ -1,4 +1,6 @@
 // -- USER CONTROLLER --
+const mongoose = require('mongoose')
+const { ObjectId } = mongoose.Types;
 
 //models
 const User = require('../models/user');
@@ -13,10 +15,10 @@ module.exports.renderRegister =  (req, res) => {
 
 module.exports.register = async (req, res, next) => {
   try{
-    const {email, username, password} = req.body;
-    const {image} = req.body;
-    const user = new User({email, username, image});
+    const {email, username, password, image} = req.body;
+    const user = new User({username, email, image});
     const registeredUser = await User.register(user, password);
+    console.log(user)
     //console.log(registeredUser);
     req.login(registeredUser, err => {
       if(err) return next(err);
@@ -74,18 +76,19 @@ module.exports.renderEditProfile = async (req, res, next) => {
 };
 
 module.exports.editProfile = async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const {username} = req.body.user;
   const {email} = req.body.user;
-  const {image} = req.body.user
+  const {image} = req.body.user;
+  //console.log(id)
+  //console.log(username)
+  //console.log(email)
+  //console.log(image)
+  const user = await User.findOneAndUpdate({ _id: new ObjectId(id) }, { username, email, image });
+  //user.save();
 
-  const user = await User.findOneAndUpdate(id, {$set: {username: username, email: email, image: image}}, {
-    new: true
-  });
-  await user.save();
-
-  console.log(user);
-  //req.logout();
+  //console.log(user);
+  req.logout();
   req.flash('success', 'Successfully updated profile!')
   return res.redirect(`/login`);
   

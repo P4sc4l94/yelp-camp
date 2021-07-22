@@ -85,6 +85,14 @@ footer .footer-nav:active {
   display: none;
 }
 
+.content-container-pad {
+  padding-top: 50px;
+}
+
+.flash-pad {
+  margin-top: 25px;
+}
+
 @media screen and (max-width: 767px) {
   h1 {
     font-size: 3.5rem;
@@ -99,5 +107,17 @@ footer .footer-nav:active {
 
   .footer-hr {
     display: block;
+  }
+
+  footer .footer-nav {
+    text-align: center;
+  }
+
+  footer .footer-logo {
+    text-align: center;
+  }
+
+  footer .footer-text {
+    text-align: center;
   }
 }

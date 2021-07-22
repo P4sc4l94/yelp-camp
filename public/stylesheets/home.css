@@ -6,10 +6,13 @@ body {
   background-size: cover;
   background-position-y: bottom;
   background-position-x: center;
+  position: relative;
 }
+/*
 .cover-container {
   max-width: 60vw;
 }
+*/
 
 .nav-link {
   /*padding: 0.25rem 0;*/
@@ -39,11 +42,22 @@ body {
   font-weight: 700;
 }
 
-.main-content {
-  position: relative;
+.content-text {
+  padding-top: 150px;
+}
+
+.lead {
+  width: 70%;
+  margin: 0 auto;
+  min-width: 300px;
+  margin-bottom: 2rem;
 }
 
 footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
+  margin: 0 auto;
+  /*background-color: gold;*/
+  width: 100%;
+  text-align: center;
 }
